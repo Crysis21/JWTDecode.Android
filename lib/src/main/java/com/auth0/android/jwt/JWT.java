@@ -132,7 +132,7 @@ public class JWT implements Parcelable {
     }
 
     /**
-     * Get a Private Claim given it's name. If the Claim wasn't specified in the JWT payload, a BaseClaim will be returned.
+     * Get a Claim given it's name. If the Claim wasn't specified in the JWT payload, a BaseClaim will be returned.
      *
      * @param name the name of the Claim to retrieve.
      * @return a valid Claim.
@@ -140,6 +140,16 @@ public class JWT implements Parcelable {
     @NonNull
     public Claim getClaim(@NonNull String name) {
         return payload.claimForName(name);
+    }
+
+    /**
+     * Get all the Claims.
+     *
+     * @return a valid Map of Claims.
+     */
+    @NonNull
+    public Map<String, Claim> getClaims() {
+        return payload.tree;
     }
 
     /**
@@ -207,6 +217,10 @@ public class JWT implements Parcelable {
 
     private String[] splitToken(String token) {
         String[] parts = token.split("\\.");
+        if (parts.length == 2 && token.endsWith(".")) {
+            //Tokens with alg='none' have empty String as Signature.
+            parts = new String[]{parts[0], parts[1], ""};
+        }
         if (parts.length != 3) {
             throw new DecodeException(String.format("The token was expected to have 3 parts, but got %s.", parts.length));
         }

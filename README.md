@@ -2,7 +2,7 @@
 
 [![CircleCI](https://img.shields.io/circleci/project/github/auth0/JWTDecode.Android.svg?style=flat-square)](https://circleci.com/gh/auth0/JWTDecode.Android/tree/master)
 [![codecov](https://codecov.io/gh/auth0/JWTDecode.android/branch/master/graph/badge.svg)](https://codecov.io/gh/auth0/JWTDecode.android)
-[ ![Download](https://api.bintray.com/packages/auth0/android/jwtdecode/images/download.svg) ](https://bintray.com/auth0/android/jwtdecode/_latestVersion)
+[![Download](https://api.bintray.com/packages/auth0/android/jwtdecode/images/download.svg)](https://bintray.com/auth0/android/jwtdecode/_latestVersion)
 
 Java library with focus on Android that provides Json Web Token (JWT) decoding.
 
@@ -10,7 +10,7 @@ Java library with focus on Android that provides Json Web Token (JWT) decoding.
 The library is be available both in Maven Central and JCenter. To start using it add this line to your `build.gradle` dependencies file:
 
 ```groovy
-compile 'com.auth0.android:jwtdecode:1.1.1'
+implementation 'com.auth0.android:jwtdecode:1.3.0'
 ```
 
 ## Usage
@@ -27,6 +27,25 @@ A `DecodeException` will raise with a detailed message if the token has:
 * A part not encoded as Base64 + UTF-8.
 * A Header or Payload without a valid JSON format.
 
+
+#### Android SDK Versions Troubleshooting
+Those using this library from version `1.2.0` and up should start targeting latest android SDK versions, as [recommended by Google](https://developer.android.com/distribute/best-practices/develop/target-sdk). Those running into conflicts because of different `com.android.support` libraries versions can choose to use latest release `28.0.0` or exclude the ones required by this library and require a different version in their app's `build.gradle` file as shown below:
+
+ e.g. if choosing an older version such as `25.4.0`
+
+```groovy
+apply plugin: 'com.android.application'
+ android {
+    //...
+ }
+ dependencies {
+    implementation ('com.auth0.android:jwtdecode:1.2.0'){
+        exclude group: 'com.android.support', module: 'appcompat-v7'
+    }
+    implementation 'com.android.support:appcompat-v7:25.4.0'
+    //...
+}
+```
 
 ### Registered Claims
 
@@ -102,12 +121,19 @@ Additional Claims defined in the token can be obtained by calling `getClaim` and
 Claim claim = jwt.getClaim("isAdmin");
 ```
 
+You can also obtain all the claims at once by calling `getClaims`.
+
+```java
+Map<String, Claim> allClaims = jwt.getClaims();
+```
+
 ### Claim Class
 The Claim class is a wrapper for the Claim values. It allows you to get the Claim as different class types. The available helpers are:
 
 #### Primitives
 * **asBoolean()**: Returns the Boolean value or null if it can't be converted.
 * **asInt()**: Returns the Integer value or null if it can't be converted.
+* **asLong()**: Returns the Long value or null if it can't be converted.
 * **asDouble()**: Returns the Double value or null if it can't be converted.
 * **asString()**: Returns the String value or null if it can't be converted.
 * **asDate()**: Returns the Date value or null if it can't be converted. Note that the [JWT Standard](https://tools.ietf.org/html/rfc7519#section-2) specified that all the *NumericDate* values must be in seconds. (Epoch / Unix time)
