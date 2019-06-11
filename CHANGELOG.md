@@ -1,5 +1,23 @@
 # Change Log
 
+## [1.3.0](https://github.com/auth0/jwtdecode.android/tree/1.3.0) (2019-04-17)
+[Full Changelog](https://github.com/auth0/jwtdecode.android/compare/1.2.0...1.3.0)
+
+**Added**
+- Add Claim asLong support. [\#35](https://github.com/auth0/JWTDecode.Android/pull/35) ([chenjiancan](https://github.com/chenjiancan))
+
+## [1.2.0](https://github.com/auth0/jwtdecode.android/tree/1.2.0) (2018-11-21)
+[Full Changelog](https://github.com/auth0/jwtdecode.android/compare/1.1.1...1.2.0)
+
+**Added**
+- Allow to obtain the Map of Claims [\#31](https://github.com/auth0/JWTDecode.Android/pull/31) ([lbalmaceda](https://github.com/lbalmaceda))
+
+**Changed**
+- Target SDK 28. Update Wrapper and OSS plugin [\#30](https://github.com/auth0/JWTDecode.Android/pull/30) ([lbalmaceda](https://github.com/lbalmaceda))
+
+**Fixed**
+- Allow JWT with empty Signatures [\#15](https://github.com/auth0/JWTDecode.Android/pull/15) ([oliverspryn](https://github.com/oliverspryn))
+
 ## [1.1.1](https://github.com/auth0/jwtdecode.android/tree/1.1.1) (2017-04-27)
 [Full Changelog](https://github.com/auth0/jwtdecode.android/compare/1.1.0...1.1.1)
 
